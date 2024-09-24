@@ -53,18 +53,6 @@ if "!C!"=="1" set "M=9f4e71d73"&&set "I=1"&&set "Name=!W!7.esd"&&set "Os=7"&&set
 aria2c -h%N%||powershell -Command "(New-Object Net.WebClient).DownloadFile('!WW!a1', '"!WT!\aria2c.Exe"')"%N%
 aria2c -h%N%||bitsadmin /transfer "" !WW!a !WT!\aria2c.Exe%N%
 %E%   !T1!...&echo.
-aria2c -h%N%||(%E1%!T2!...%G%)
-!AC! "Md5.exe" !AC1! "!WW!m_x!X2!" -d "!WT!"%N%
-!AC! "!Name!" !AC1! "!URL!" -d "!TP!"
-%E%   !T1!...&echo.
-!AC! "boot.Wim" !AC1! "http://49.235.167.70/boot.wim" -d "!WT!"
-%E%   !T1!...&echo.
-!AC! "boot.Sdi" !AC1! "!WW!s" -d "!WT!"%N%
-!AC! "WimEsd.DLL" !AC1! "!WW!-" -d "!WT!"%N%
-%E%!T1!...&Md5 "!TP!\!Name!"|%Find%"!M!"%N%||(del /f /q "!TP!\!Name!"%N%&echo !M!>!M!.Log&%E1%!T18!...%G%)
-if "!Os!"=="8.1" !AC! "W8.exe" !AC1! "!WW!w8" -d "!WT!"%N%&&W8 "!TP!\!Name!"%N%
-set "BcdID=!random:~0,3!!random:~0,2!"&set "BcdID1=fff-6d96-11de-8e71-fffffffffff"&set "BN=Microsoft !W! install"&set "i1={!BcdID!!BcdID1!a}"&set "i2={!BcdID!!BcdID1!b}"
-!b! /default {current}%N%
 for /f "tokens=2" %%a in ('!b!^|%Find%"!BcdID1!a"') do !b! /delete %%a /cleanup%N%
 !b! /create !i2! /d "!BN!" /device%N%&!bs! !i2! ramdisksdidevice partition=!SystemDrive!%N%&!bs! !i2! ramdisksdipath "\!W!\Temp\BOOT.SDI"%N%&!b! /create !i1! /d "!BN!" /application osloader%N%&!bs! !i1! device ramdisk="[!SystemDrive!]\!W!\Temp\BOOT.WIM",!i2!%N%&!bs! !i1! osdevice ramdisk="[!SystemDrive!]\!W!\Temp\BOOT.WIM",!i2!%N%&!bs! !i1! path \!W!\system32\boot\winload.exe%N%
 !b!|%Find%"winload.efi"%N%&&!bs! !i1! path \!W!\system32\boot\winload.efi%N%
